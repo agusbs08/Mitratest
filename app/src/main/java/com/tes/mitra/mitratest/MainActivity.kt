@@ -61,19 +61,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initAction() {
         btnSubmit.setOnClickListener {
-            val flip = et_flip.text.toString()
-            if(flip == "") {
-                onMessage("Isi metode flip")
-            } else if(flip.toLowerCase() == "h") {
-                horizontal()
-            } else if(flip.toLowerCase() == "v") {
-                vertical()
-            } else {
-                try {
-                    val flipInt = flip.toInt()
-                    shiftBy(flipInt)
-                } catch (e : Exception) {
-                    onMessage("Isi inputan dengan angka")
+            val flipMethods = et_flip.text.toString().split(",")
+
+            for(i in 0 until flipMethods.size) {
+                val flip = flipMethods[i]
+
+                if(flip == "") {
+                    continue
+                } else if(flip.toLowerCase() == "h") {
+                    horizontal()
+                } else if(flip.toLowerCase() == "v") {
+                    vertical()
+                } else {
+                    try {
+                        val flipInt = flip.toInt()
+                        shiftBy(flipInt)
+                    } catch (e : Exception) {
+                        continue
+                    }
                 }
             }
         }
